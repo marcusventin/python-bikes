@@ -5,11 +5,14 @@ class DockingStation:
         self.bikes = []
     
     def release_bike(self):
-        for bike in self.bikes:
-            if bike.working:
-                bike.release()
-                self.bikes.remove(bike)
-                break
+        if len(self.bikes) == 0:
+            raise IndexError("There are no bikes in this station")
+        else:
+            for bike in self.bikes:
+                if bike.working:
+                    bike.release()
+                    self.bikes.remove(bike)
+                    break
     
     def dock(self, bike):
         bike.dock()

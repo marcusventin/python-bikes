@@ -37,6 +37,13 @@ class TestDockingStation(unittest.TestCase):
 
         self.assertEqual(len(dock.bikes), 2)
     
+    def test_release_raises_error_when_station_is_empty(self):
+        dock = DockingStation()
+
+        self.assertRaises(IndexError, dock.release_bike)
+
+
+    
     def test_dock_adds_bike_to_station(self):
         dock = DockingStation()
         bike = Bike("released", True)
