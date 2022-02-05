@@ -1,9 +1,9 @@
 from lib.bike import Bike
 
 class DockingStation:
-    def __init__(self):
+    def __init__(self, capacity=20):
         self.bikes = []
-        self.default_capacity = 20
+        self.capacity = capacity
     
     def release_bike(self):
         if self.empty():
@@ -23,7 +23,7 @@ class DockingStation:
             self.bikes.append(bike)
     
     def full(self):
-        return(len(self.bikes) >= self.default_capacity)
+        return(len(self.bikes) >= self.capacity)
     
     def empty(self):
         return(len(self.bikes) == 0)
