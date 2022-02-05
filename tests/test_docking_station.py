@@ -10,17 +10,16 @@ class TestDockingStation(unittest.TestCase):
     def test_release_bike(self):
         dock = DockingStation()
         bike = Bike("docked", True)
-        dock.bikes.append(bike)
+        dock.bikes = [bike]
         dock.release_bike()
 
         self.assertEqual(bike.status, "released")
     
-    def test_wont_release_broken_bike(self):
+    def test_doesnt_release_broken_bike(self):
         dock = DockingStation()
         working = Bike("docked", True)
         broken = Bike("docked", False)
-        dock.bikes.append(broken)
-        dock.bikes.append(working)
+        dock.bikes = [broken, working]
         dock.release_bike()
 
         self.assertEqual(dock.bikes, [broken])
@@ -30,9 +29,7 @@ class TestDockingStation(unittest.TestCase):
         working1 = Bike("docked", True)
         working2 = Bike("docked", True)
         working3 = Bike("docked", True)
-        dock.bikes.append(working1)
-        dock.bikes.append(working2)
-        dock.bikes.append(working3)
+        dock.bikes = [working1, working2, working3]
         dock.release_bike()
 
         self.assertEqual(len(dock.bikes), 2)
@@ -41,8 +38,6 @@ class TestDockingStation(unittest.TestCase):
         dock = DockingStation()
 
         self.assertRaises(IndexError, dock.release_bike)
-
-
     
     def test_dock_adds_bike_to_station(self):
         dock = DockingStation()
@@ -51,4 +46,10 @@ class TestDockingStation(unittest.TestCase):
 
         self.assertEqual(len(dock.bikes), 1)
 
+    def test_dock_raises_error_when_station_at_capacity(self):
+        dock = DockingStation()
+        bike = Bike("released", True)
+        dock.bikes = [f"bike{number}" for number in range(dock.max_capacity)]
+        
+        self.assertRaises(TypeError, dock.dock, bike)
 

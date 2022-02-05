@@ -3,6 +3,7 @@ from lib.bike import Bike
 class DockingStation:
     def __init__(self):
         self.bikes = []
+        self.max_capacity = 5
     
     def release_bike(self):
         if len(self.bikes) == 0:
@@ -15,6 +16,9 @@ class DockingStation:
                     break
     
     def dock(self, bike):
-        bike.dock()
-        self.bikes.append(bike)
+        if len(self.bikes) >= self.max_capacity:
+            raise TypeError("This station is full")
+        else:
+            bike.dock()
+            self.bikes.append(bike)
         
