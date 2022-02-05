@@ -1,7 +1,7 @@
 from lib.bike import Bike
 
 class DockingStation:
-    def __init__(self, capacity=20):
+    def __init__(self, capacity = 20):
         self.bikes = []
         self.capacity = capacity
     
