@@ -49,7 +49,28 @@ class TestDockingStation(unittest.TestCase):
     def test_dock_raises_error_when_station_at_capacity(self):
         dock = DockingStation()
         bike = Bike("released", True)
-        dock.bikes = [f"bike{number}" for number in range(dock.max_capacity)]
+        dock.bikes = [f"bike{number}" for number in range(dock.default_capacity)]
         
         self.assertRaises(TypeError, dock.dock, bike)
 
+    def test_returns_true_when_station_full(self):
+        dock = DockingStation()
+        dock.bikes = [f"bike{number}" for number in range(dock.default_capacity)]
+
+        self.assertEqual(dock.full(), True)
+    
+    def test_returns_false_when_not_full(self):
+        dock = DockingStation()
+
+        self.assertEqual(dock.full(), False)
+    
+    def test_returns_true_when_station_empty(self):
+        dock = DockingStation()
+
+        self.assertEqual(dock.empty(), True)
+
+    def test_returns_false_when_not_empty(self):
+        dock = DockingStation()
+        dock.bikes = ["bike0"]
+
+        self.assertEqual(dock.empty(), False)
