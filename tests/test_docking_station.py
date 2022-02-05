@@ -7,15 +7,12 @@ class TestDockingStation(unittest.TestCase):
     def test_constructs(self):
         DockingStation()
     
-    def test_release_bike(self):
-        dock = DockingStation()
-        bike = Bike("docked", True)
-        dock.bikes = [bike]
-        dock.release_bike()
+    def test_allows_for_custom_capacity(self):
+        dock = DockingStation(5)
 
-        self.assertEqual(bike.status, "released")
+        self.assertEqual(dock.capacity, 5)
     
-    def test_doesnt_release_broken_bike(self):
+    def test_release__doesnt_release_broken_bikes(self):
         dock = DockingStation()
         working = Bike("docked", True)
         broken = Bike("docked", False)
@@ -24,7 +21,7 @@ class TestDockingStation(unittest.TestCase):
 
         self.assertEqual(dock.bikes, [broken])
     
-    def test_only_releases_one_bike(self):
+    def test_release_only_releases_one_bike(self):
         dock = DockingStation()
         working1 = Bike("docked", True)
         working2 = Bike("docked", True)
@@ -52,30 +49,33 @@ class TestDockingStation(unittest.TestCase):
         dock.bikes = [f"bike{number}" for number in range(dock.capacity)]
         
         self.assertRaises(TypeError, dock.dock, bike)
+    
+    def test_dock_accepts_broken_bikes(self):
+        dock = DockingStation(2)
+        bike = Bike("released", False)
+        dock.dock(bike)
 
-    def test_returns_true_when_station_full(self):
+        self.assertEqual(len(dock.bikes), 1)
+
+    def test_full_returns_true_when_station_full(self):
         dock = DockingStation()
         dock.bikes = [f"bike{number}" for number in range(dock.capacity)]
 
         self.assertEqual(dock.full(), True)
     
-    def test_returns_false_when_not_full(self):
+    def test_full_returns_false_when_not_full(self):
         dock = DockingStation()
 
         self.assertEqual(dock.full(), False)
     
-    def test_returns_true_when_station_empty(self):
+    def test_empty_returns_true_when_station_empty(self):
         dock = DockingStation()
 
         self.assertEqual(dock.empty(), True)
 
-    def test_returns_false_when_not_empty(self):
+    def test_empty_returns_false_when_not_empty(self):
         dock = DockingStation()
         dock.bikes = ["bike0"]
 
         self.assertEqual(dock.empty(), False)
     
-    def test_allows_for_custom_capacity(self):
-        dock = DockingStation(5)
-
-        self.assertEqual(dock.capacity, 5)

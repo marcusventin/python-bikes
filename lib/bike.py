@@ -8,4 +8,7 @@ class Bike:
     
     def dock(self):
         self.status = "docked"
+
+    def report(self):
+        self.working = False
     

@@ -11,11 +11,11 @@ class TestBike(unittest.TestCase):
         bike.release()
         self.assertEqual(bike.status, "released")
     
-    def test_is_working(self):
+    def test_working(self):
         bike = Bike("docked", True)
         self.assertEqual(bike.working, True)
     
-    def test_is_broken(self):
+    def test_not_working(self):
         bike = Bike("docked", False)
         self.assertEqual(bike.working, False)
     
@@ -24,3 +24,9 @@ class TestBike(unittest.TestCase):
         bike.dock()
 
         self.assertEqual(bike.status, "docked")
+    
+    def test_report_changes_working_to_false(self):
+        bike = Bike("released", True)
+        bike.report()
+
+        self.assertEqual(bike.working, False)
