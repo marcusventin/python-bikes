@@ -36,5 +36,12 @@ class TestDockingStation(unittest.TestCase):
         dock.release_bike()
 
         self.assertEqual(len(dock.bikes), 2)
+    
+    def test_dock_adds_bike_to_station(self):
+        dock = DockingStation()
+        bike = Bike("released", True)
+        dock.dock(bike)
+
+        self.assertEqual(len(dock.bikes), 1)
 
 

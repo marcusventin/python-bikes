@@ -10,3 +10,8 @@ class DockingStation:
                 bike.release()
                 self.bikes.remove(bike)
                 break
+    
+    def dock(self, bike):
+        bike.dock()
+        self.bikes.append(bike)
+        

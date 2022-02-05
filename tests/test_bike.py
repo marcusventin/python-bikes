@@ -18,3 +18,9 @@ class TestBike(unittest.TestCase):
     def test_is_broken(self):
         bike = Bike("docked", False)
         self.assertEqual(bike.working, False)
+    
+    def test_dock_changes_status(self):
+        bike = Bike("released", True)
+        bike.dock()
+
+        self.assertEqual(bike.status, "docked")

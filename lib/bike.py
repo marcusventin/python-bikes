@@ -5,3 +5,7 @@ class Bike:
     
     def release(self):
         self.status = "released"
+    
+    def dock(self):
+        self.status = "docked"
+    
