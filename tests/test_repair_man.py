@@ -49,3 +49,32 @@ class TestRepairMan(unittest.TestCase):
         self.assertIn(working1, monty.bikes)
         self.assertNotIn(broken1, monty.bikes)
         self.assertNotIn(broken2, monty.bikes)
+    
+    def test_collect_working_adds_working_to_list(self):
+        monty = RepairMan()
+
+        broken1 = Mock()
+        broken1.status = "released"
+        broken1.working = False
+
+        broken2 = Mock()
+        broken2.status = "released"
+        broken2.working = False
+
+        working1 = Mock()
+        working1.status = "released"
+        working1.working = True
+
+        working2 = Mock()
+        working2.status = "released"
+        working2.working = True
+
+        garage = Mock()
+        garage.bikes = [broken1, working1, broken2, working2]
+
+        monty.collect_working(garage)
+
+        self.assertIn(working1, monty.bikes)
+        self.assertIn(working2, monty.bikes)
+        self.assertNotIn(broken1, monty.bikes)
+        self.assertNotIn(broken2, monty.bikes)

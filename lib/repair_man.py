@@ -20,3 +20,11 @@ class RepairMan:
         
         while broken_bikes:
             self.bikes.remove(broken_bikes.pop())
+    
+    def collect_working(self, garage):
+        collect = [bike for bike in garage.bikes if bike.working]
+
+        while collect:
+            self.bikes.append(collect.pop())
+        
+        garage.despatch_working()
