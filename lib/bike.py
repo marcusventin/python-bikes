@@ -1,6 +1,5 @@
-
 class Bike:
-    def __init__(self, status, working):
+    def __init__(self, status = "released", working = True):
         self.status, self.working = status, working
     
     def release(self):
