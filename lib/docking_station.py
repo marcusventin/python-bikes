@@ -30,7 +30,6 @@ class DockingStation:
         while broken_bikes:
             self.bikes.remove(broken_bikes.pop())
 
-    
     def full(self):
         return(len(self.bikes) >= self.capacity)
     

@@ -23,3 +23,29 @@ class TestRepairMan(unittest.TestCase):
 
         self.assertEqual(len(monty.bikes), 1)
         self.assertIn(broken1, monty.bikes)
+    
+    def test_deliver_broken_removes_broken_bikes_from_list(self):
+        monty = RepairMan()
+
+        garage = Mock()
+        garage.bikes = []
+
+        broken1 = Mock()
+        broken1.status = "released"
+        broken1.working = False
+
+        broken2 = Mock()
+        broken2.status = "released"
+        broken2.working = False
+
+        working1 = Mock()
+        working1.status = "released"
+        working1.working = True
+
+        monty.bikes = [broken1, working1, broken2]
+
+        monty.deliver_broken(garage)
+
+        self.assertIn(working1, monty.bikes)
+        self.assertNotIn(broken1, monty.bikes)
+        self.assertNotIn(broken2, monty.bikes)
