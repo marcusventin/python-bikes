@@ -1,28 +1,14 @@
-# import unittest
-# from unittest.mock import Mock
+import unittest
+from unittest.mock import Mock
 
-# from lib.garage import Garage
+from lib.garage import Garage
 
-# class TestGarage(unittest.TestCase):
-#     def test_accept_adds_bikes(self):
-#         garage = Garage()
+class TestGarage(unittest.TestCase):
+    def test_repair_raises_error_if_bike_working(self):
+        garage = Garage()
+        
+        working = Mock()
+        working.status = "released"
+        working.working = True
 
-#         broken1 = Mock()
-#         broken1.status = "released"
-#         broken1.working = False
-
-#         broken2 = Mock()
-#         broken2.status = "released"
-#         broken2.working = False
-
-#         broken3 = Mock()
-#         broken3.status = "released"
-#         broken3.working = False
-
-#         broken_bikes = [broken1, broken2, broken3]
-
-#         garage.accept(broken_bikes)
-
-#         self.assertIn(broken1, garage.bikes)
-#         self.assertIn(broken2, garage.bikes)
-#         self.assertIn(broken3, garage.bikes)
+        self.assertRaises(NotImplementedError, garage.repair, working)

@@ -30,3 +30,10 @@ class TestBike(unittest.TestCase):
         bike.report()
 
         self.assertEqual(bike.working, False)
+    
+    def test_repair_changes_working_to_true(self):
+        bike = Bike("released", False)
+        bike.repair()
+
+        self.assertEqual(bike.working, True)
+    

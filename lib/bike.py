@@ -12,3 +12,6 @@ class Bike:
     def report(self):
         self.working = False
     
+    def repair(self):
+        self.working = True
+    

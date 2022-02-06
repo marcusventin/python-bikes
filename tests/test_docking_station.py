@@ -3,19 +3,14 @@ from unittest.mock import Mock
 
 
 from lib.docking_station import DockingStation
-# from lib.bike import Bike
 
-class TestDockingStation(unittest.TestCase):
-
-    def test_constructs(self):
-        DockingStation()
-    
+class TestDockingStation(unittest.TestCase): 
     def test_allows_for_custom_capacity(self):
         dock = DockingStation(5)
 
         self.assertEqual(dock.capacity, 5)
 
-    def test_release__doesnt_release_broken_bikes(self):
+    def test_release_bike_doesnt_release_broken_bikes(self):
         dock = DockingStation()
 
         working = Mock()
@@ -51,11 +46,17 @@ class TestDockingStation(unittest.TestCase):
 
         self.assertEqual(len(dock.bikes), 2)
     
-    def test_release_raises_error_when_station_is_empty(self):
+    def test_release_bike_raises_error_when_no_working_bikes(self):
         dock = DockingStation()
 
+        broken = Mock()
+        broken.status = "docked"
+        broken.working = False
+
+        dock.bikes = [broken]
+
         self.assertRaises(IndexError, dock.release_bike)
-    
+
     def test_dock_adds_bike_to_station(self):
         dock = DockingStation()
         
@@ -66,6 +67,7 @@ class TestDockingStation(unittest.TestCase):
         dock.dock(bike)
 
         self.assertEqual(len(dock.bikes), 1)
+        self.assertIn(bike, dock.bikes)
 
     def test_dock_raises_error_when_station_at_capacity(self):
         dock = DockingStation()
@@ -79,7 +81,7 @@ class TestDockingStation(unittest.TestCase):
         self.assertRaises(TypeError, dock.dock, bike)
     
     def test_dock_accepts_broken_bikes(self):
-        dock = DockingStation(2)
+        dock = DockingStation()
 
         bike = Mock()
         bike.status = "released"

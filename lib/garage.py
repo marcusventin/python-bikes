@@ -1,9 +1,8 @@
-class Garage:
-    DEFAULT_CAPACITY = 20
+from lib.bike_methods import BikeMethods
 
-    def __init__(self, capacity = DEFAULT_CAPACITY):
-        self.bikes = []
-        self.capacity = capacity
-    
-    def full(self):
-        return(len(self.bikes) >= self.capacity)
+class Garage(BikeMethods):
+    def repair(self, bike):
+        if bike.working:
+            raise NotImplementedError("This bike already works.")
+        else:
+            bike.working = True

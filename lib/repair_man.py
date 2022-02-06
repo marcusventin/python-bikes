@@ -1,10 +1,6 @@
-class RepairMan:
-    DEFAULT_CAPACITY = 20
+from lib.bike_methods import BikeMethods
 
-    def __init__(self, capacity = DEFAULT_CAPACITY):
-        self.bikes = []
-        self.capacity = capacity
-
+class RepairMan(BikeMethods):
     def collect_broken(self, docking_station):
         collect = [bike for bike in docking_station.bikes 
             if bike.working == False]
@@ -13,9 +9,9 @@ class RepairMan:
             if self.full():
                 raise TypeError("This repairman can't take any more!")
             else:
-                self.bikes.append(broken_bike)
-                broken_bike.release
-                docking_station.bikes.remove(broken_bike)
+                self.add(broken_bike)
+                broken_bike.release()
+                docking_station.remove(broken_bike)
         collect.clear()
 
     def deliver_broken(self, garage):
@@ -25,8 +21,8 @@ class RepairMan:
             if garage.full():
                 raise TypeError("This garage is full")
             else:
-                garage.bikes.append(bike)
-                self.bikes.remove(bike)
+                garage.add(bike)
+                self.remove(bike)
     
     def collect_working(self, garage):
         collect = [bike for bike in garage.bikes if bike.working]
@@ -35,8 +31,8 @@ class RepairMan:
             if self.full():
                 raise TypeError("This repairman can't take any more!")
             else:
-                self.bikes.append(working_bike)
-                garage.bikes.remove(working_bike)
+                self.add(working_bike)
+                garage.remove(working_bike)
 
     def deliver_working(self, docking_station):
         working_bikes = [bike for bike in self.bikes if bike.working]
@@ -45,10 +41,8 @@ class RepairMan:
             if docking_station.full():
                 raise TypeError("This station is full")
             else:
-                docking_station.bikes.append(bike)
-                self.bikes.remove(bike)
-    
-    def full(self):
-        return(len(self.bikes) >= self.capacity)
+                docking_station.add(bike)
+                self.remove(bike)
+                bike.dock()
 
 
