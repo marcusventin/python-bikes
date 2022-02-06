@@ -1,4 +1,4 @@
-class BikeMethods:
+class BikeMixin:
     DEFAULT_CAPACITY = 20
 
     def __init__(self, capacity = DEFAULT_CAPACITY):

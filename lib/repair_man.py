@@ -1,6 +1,6 @@
-from lib.bike_methods import BikeMethods
+from lib.bike_mixin import BikeMixin
 
-class RepairMan(BikeMethods):
+class RepairMan(BikeMixin):
     def collect_broken(self, docking_station):
         collect = [bike for bike in docking_station.bikes 
             if bike.working == False]

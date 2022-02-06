@@ -1,6 +1,6 @@
-from lib.bike_methods import BikeMethods
+from lib.bike_mixin import BikeMixin
 
-class DockingStation(BikeMethods):
+class DockingStation(BikeMixin):
     def release_bike(self):
         working_bikes = [bike for bike in self.bikes if bike.working]
         if len(working_bikes) == 0:

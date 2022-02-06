@@ -1,8 +1,8 @@
 import random
 
-from lib.bike_methods import BikeMethods
+from lib.bike_mixin import BikeMixin
 
-class Garage(BikeMethods):
+class Garage(BikeMixin):
     def repair(self, bike):
         confirmations = ["Clink!", "Screw!", "Bend!", "Inflate!",
             "Alter Saddle!"]

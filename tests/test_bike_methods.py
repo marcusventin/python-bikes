@@ -1,11 +1,11 @@
 import unittest
 from unittest.mock import Mock
 
-from lib.bike_methods import BikeMethods
+from lib.bike_mixin import BikeMixin
 
-class TestBikeMethods(unittest.TestCase):
+class TestBikeMixin(unittest.TestCase):
     def test_allows_for_custom_capacity(self):
-        container = BikeMethods(5)
+        container = BikeMixin(5)
 
         self.assertEqual(container.capacity, 5)
     
@@ -14,7 +14,7 @@ class TestBikeMethods(unittest.TestCase):
         bike.status = "released"
         bike.working = True
 
-        container = BikeMethods()
+        container = BikeMixin()
         container.add(bike)
 
         self.assertEqual(len(container.bikes), 1)
@@ -25,7 +25,7 @@ class TestBikeMethods(unittest.TestCase):
         bike.status = "docked"
         bike.working = True
 
-        container = BikeMethods()
+        container = BikeMixin()
         container.bikes = [bike for number in range(container.capacity)]
 
         self.assertRaises(TypeError, container.add, bike)
@@ -35,7 +35,7 @@ class TestBikeMethods(unittest.TestCase):
         bike.status = "docked"
         bike.working = True
 
-        container = BikeMethods()
+        container = BikeMixin()
         container.bikes = [bike]
         container.remove(bike)
 
@@ -47,18 +47,18 @@ class TestBikeMethods(unittest.TestCase):
         bike.status = "docked"
         bike.working = True
 
-        container = BikeMethods()
+        container = BikeMixin()
         container.bikes = [bike for number in range(container.capacity)]
 
         self.assertEqual(container.full(), True)
 
     def test_full_returns_false_when_not_full(self):
-        container = BikeMethods()
+        container = BikeMixin()
 
         self.assertEqual(container.full(), False)
 
     def test_empty_returns_true_when_station_empty(self):
-        container = BikeMethods()
+        container = BikeMixin()
 
         self.assertEqual(container.empty(), True)
 
@@ -67,7 +67,7 @@ class TestBikeMethods(unittest.TestCase):
         bike.status = "docked"
         bike.working = False
 
-        container = BikeMethods()
+        container = BikeMixin()
         container.bikes = [bike]
 
         self.assertEqual(container.empty(), False)
