@@ -1,5 +1,5 @@
 # Python Bikes
-### Featuring [Bicycle Repair Man](https://www.dailymotion.com/video/x2howud)
+### Featuring [Bicycle Repairman](https://www.dailymotion.com/video/x2howud)
 
 ## Motivation
 This project is a repeat of my earlier [Boris Bikes](https://github.com/marcusventin/boris-bikes) exercise. While that project was completed using Ruby, this project serves as an introduction to Python.
@@ -56,3 +56,35 @@ This project is intended to satisfy the following user stories:
 > As a maintainer of the system,  
 > So that I can manage broken bikes and not disappoint users,  
 > I'd like vans to collect working bikes from garages and distribute them to docking stations.  
+
+## Features
+Users can dock and withdraw bikes from docking stations. Although broken bikes can be docked, they cannot be withdrawn.  
+
+If a user encounters a problem with their bike, they can report it as not working.  
+
+Bicycle repairmen can collect broken bikes from docking stations and deliver them to garages. They can also collect working bikes from garages and return them to docking stations.  
+
+Garages can repair broken bikes.  
+
+## How to Use
+# Set-Up
+1. Fork this repository and clone it to your machine.
+2. Run `pipenv shell` to create a shell within the virtual environment.
+3. MORE DETAIL TO COME
+
+
+# Docking Station methods
+`docking_station.dock(bike)` - docks a bike in the docking station, or raises an error if the station is full.  
+`docking_station.release_bike(bike)` - releases a working bike from the docking station, or raises an error if there are no working bikes in the station.  
+
+# Repairman methods
+`repairman.collect_broken(docking_station)` - collects broken bikes from a docking station, provided the repairman has capacity to hold them.  
+`repairman.deliver_broken(garage)` - repairman deposits broken bikes in a garage, subject to its capacity.  
+`repairman.collect_working(garage)` - collects working bikes from a garage, provided the repairman has the capacity to hold them.  
+`repairman.deliver_working(docking_station)` - repairman deposits working bikes at a docking station, subject to capacity.
+
+# Garage methods  
+`garage.repair(bike)` - repairs a broken bike, with accompanying Pythonesque onomatopoeias.
+
+# Bike methods
+`bike.report()` - changes a bike's status to not working.
