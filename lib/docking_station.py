@@ -23,17 +23,6 @@ class DockingStation:
         else:
             bike.dock()
             self.bikes.append(bike)
-    
-    def remove_broken(self):
-        broken_bikes = [bike for bike in self.bikes 
-            if bike.working == False]
-        while broken_bikes:
-            self.bikes.remove(broken_bikes.pop())
-
-    def accept_working(self, working_bikes):
-        for bike in working_bikes:
-            self.bikes.append(bike)
-
 
     def full(self):
         return(len(self.bikes) >= self.capacity)

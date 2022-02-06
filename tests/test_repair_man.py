@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, MagicMock
 
 from lib.repair_man import RepairMan
 
@@ -29,6 +29,7 @@ class TestRepairMan(unittest.TestCase):
 
         garage = Mock()
         garage.bikes = []
+        garage.full = MagicMock(return_value = False)
 
         broken1 = Mock()
         broken1.status = "released"
@@ -102,6 +103,7 @@ class TestRepairMan(unittest.TestCase):
 
         dock = Mock()
         dock.bikes = []
+        dock.full = MagicMock(return_value = False)
 
         monty.deliver_working(dock)
 
