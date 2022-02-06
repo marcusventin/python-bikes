@@ -19,11 +19,11 @@ class TestDockingStation(unittest.TestCase):
         dock = DockingStation()
 
         working = Mock()
-        working.status = "released"
+        working.status = "docked"
         working.working = True
 
         broken = Mock()
-        broken.status = "released"
+        broken.status = "docked"
         broken.working = False
 
         dock.bikes = [broken, working]
