@@ -6,7 +6,11 @@ class BikeMethods:
         self.capacity = capacity
 
     def add(self, bike):
-        self.bikes.append(bike)
+        if self.full():
+            raise TypeError(f"This {type(self).__name__} can't "
+            "take any more bikes.")
+        else:
+            self.bikes.append(bike)
     
     def remove(self, bike):
         self.bikes.remove(bike)

@@ -5,8 +5,6 @@ from lib.repair_man import RepairMan
 
 class TestRepairMan(unittest.TestCase):
     def test_collect_broken_adds_broken_bikes_to_list(self):
-        monty = RepairMan()
-
         broken1 = Mock()
         broken1.status = "docked"
         broken1.working = False
@@ -19,14 +17,13 @@ class TestRepairMan(unittest.TestCase):
         dock.bikes = [working1, broken1]
         dock.capacity = 20
 
+        monty = RepairMan()
         monty.collect_broken(dock)
 
         self.assertEqual(len(monty.bikes), 1)
         self.assertIn(broken1, monty.bikes)
     
     def test_deliver_broken_removes_broken_bikes_from_list(self):
-        monty = RepairMan()
-
         garage = Mock()
         garage.bikes = []
         garage.full = MagicMock(return_value = False)
@@ -43,8 +40,8 @@ class TestRepairMan(unittest.TestCase):
         working1.status = "released"
         working1.working = True
 
+        monty = RepairMan()
         monty.bikes = [broken1, working1, broken2]
-
         monty.deliver_broken(garage)
 
         self.assertIn(working1, monty.bikes)
@@ -52,8 +49,6 @@ class TestRepairMan(unittest.TestCase):
         self.assertNotIn(broken2, monty.bikes)
     
     def test_collect_working_adds_working_to_list(self):
-        monty = RepairMan()
-
         broken1 = Mock()
         broken1.status = "released"
         broken1.working = False
@@ -73,6 +68,7 @@ class TestRepairMan(unittest.TestCase):
         garage = Mock()
         garage.bikes = [broken1, working1, broken2, working2]
 
+        monty = RepairMan()
         monty.collect_working(garage)
 
         self.assertIn(working1, monty.bikes)
@@ -81,8 +77,6 @@ class TestRepairMan(unittest.TestCase):
         self.assertNotIn(broken2, monty.bikes)
     
     def test_deliver_working_removes_working_from_list(self):
-        monty = RepairMan()
-
         broken1 = Mock()
         broken1.status = "released"
         broken1.working = False
@@ -99,12 +93,12 @@ class TestRepairMan(unittest.TestCase):
         working2.status = "released"
         working2.working = True
 
-        monty.bikes = [broken1, working1, working2, broken2]
-
         dock = Mock()
         dock.bikes = []
         dock.full = MagicMock(return_value = False)
 
+        monty = RepairMan()
+        monty.bikes = [broken1, working1, working2, broken2]
         monty.deliver_working(dock)
 
         self.assertIn(broken1, monty.bikes)
