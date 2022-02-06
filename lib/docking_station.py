@@ -30,6 +30,11 @@ class DockingStation:
         while broken_bikes:
             self.bikes.remove(broken_bikes.pop())
 
+    def accept_working(self, working_bikes):
+        for bike in working_bikes:
+            self.bikes.append(bike)
+
+
     def full(self):
         return(len(self.bikes) >= self.capacity)
     

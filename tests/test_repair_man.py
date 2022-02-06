@@ -4,7 +4,7 @@ from unittest.mock import Mock
 from lib.repair_man import RepairMan
 
 class TestRepairMan(unittest.TestCase):
-    def test_collect_adds_broken_bikes_to_list(self):
+    def test_collect_broken_adds_broken_bikes_to_list(self):
         monty = RepairMan()
 
         broken1 = Mock()
@@ -78,3 +78,34 @@ class TestRepairMan(unittest.TestCase):
         self.assertIn(working2, monty.bikes)
         self.assertNotIn(broken1, monty.bikes)
         self.assertNotIn(broken2, monty.bikes)
+    
+    def test_deliver_working_removes_working_from_list(self):
+        monty = RepairMan()
+
+        broken1 = Mock()
+        broken1.status = "released"
+        broken1.working = False
+
+        broken2 = Mock()
+        broken2.status = "released"
+        broken2.working = False
+
+        working1 = Mock()
+        working1.status = "released"
+        working1.working = True
+
+        working2 = Mock()
+        working2.status = "released"
+        working2.working = True
+
+        monty.bikes = [broken1, working1, working2, broken2]
+
+        dock = Mock()
+        dock.bikes = []
+
+        monty.deliver_working(dock)
+
+        self.assertIn(broken1, monty.bikes)
+        self.assertIn(broken2, monty.bikes)
+        self.assertNotIn(working1, monty.bikes)
+        self.assertNotIn(working2, monty.bikes)

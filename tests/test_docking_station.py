@@ -149,3 +149,22 @@ class TestDockingStation(unittest.TestCase):
         self.assertIn(working2, dock.bikes)
         self.assertNotIn(broken1, dock.bikes)
         self.assertNotIn(broken2, dock.bikes)
+    
+    def test_accept_adds_bikes(self):
+        dock = DockingStation()
+        
+        working1 = Mock()
+        working1.status = "docked"
+        working1.working = True
+
+        working2 = Mock()
+        working2.status = "docked"
+        working2.working = True
+
+        working_bikes = [working1, working2]
+
+        dock.accept_working(working_bikes)
+
+        self.assertEqual(len(dock.bikes), 2)
+        self.assertIn(working1, dock.bikes)
+        self.assertIn(working2, dock.bikes)

@@ -28,3 +28,13 @@ class RepairMan:
             self.bikes.append(collect.pop())
         
         garage.despatch_working()
+
+    def deliver_working(self, docking_station):
+        working_bikes = [bike for bike in self.bikes if bike.working]
+        
+        docking_station.accept_working(working_bikes)
+
+        while working_bikes:
+            self.bikes.remove(working_bikes.pop())
+
+
