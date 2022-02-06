@@ -2,7 +2,7 @@ from lib.bike import Bike
 
 class DockingStation:
     DEFAULT_CAPACITY = 20
-    
+
     def __init__(self, capacity = DEFAULT_CAPACITY):
         self.bikes = []
         self.capacity = capacity
@@ -23,6 +23,13 @@ class DockingStation:
         else:
             bike.dock()
             self.bikes.append(bike)
+    
+    def remove_broken(self):
+        broken_bikes = [bike for bike in self.bikes 
+            if bike.working == False]
+        while broken_bikes:
+            self.bikes.remove(broken_bikes.pop())
+
     
     def full(self):
         return(len(self.bikes) >= self.capacity)

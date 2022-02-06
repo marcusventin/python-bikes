@@ -3,7 +3,7 @@ from unittest.mock import Mock
 
 
 from lib.docking_station import DockingStation
-from lib.bike import Bike
+# from lib.bike import Bike
 
 class TestDockingStation(unittest.TestCase):
 
@@ -121,3 +121,31 @@ class TestDockingStation(unittest.TestCase):
 
         self.assertEqual(dock.empty(), False)
     
+    def test_remove_broken_removes_broken_bikes(self):
+        dock = DockingStation()
+
+        working1 = Mock()
+        working1.status = "docked"
+        working1.working = True
+
+        working2 = Mock()
+        working2.status = "docked"
+        working2.working = True
+
+        broken1 = Mock()
+        broken1.status = "docked"
+        broken1.working = False
+
+        broken2 = Mock()
+        broken2.status = "docked"
+        broken2.working = False
+
+        dock.bikes = [broken1, working1, working2, broken2]
+
+        dock.remove_broken()
+
+        self.assertEqual(len(dock.bikes), 2)
+        self.assertIn(working1, dock.bikes)
+        self.assertIn(working2, dock.bikes)
+        self.assertNotIn(broken1, dock.bikes)
+        self.assertNotIn(broken2, dock.bikes)
