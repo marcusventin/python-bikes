@@ -69,12 +69,13 @@ Garages can repair broken bikes.
 ## How to Use
 #### Set-Up
 1. Fork this repository and clone it to your machine.
-2. Run `python3` to initialise your REPL.
-3. Run `from lib.bike import Bike` to load the Bike class.
-4. Run `from lib.docking_station import DockingStation` to load the DockingStation class.
-5. Run `from lib.garage import Garage` to load the Garage class.
-6. Run `from lib.repair_man import RepairMan` to load the RepairMan class.
-7. Play to your heart's content using the following commands.
+2. Check for bugs by running `pipenv shell` in your terminal to initialize a virtual environment, followed by `python -m unittest discover tests` to ensure that all tests are passing. 
+3. Run `python3` to initialise your REPL.
+4. Run `from lib.bike import Bike` to load the Bike class.
+5. Run `from lib.docking_station import DockingStation` to load the DockingStation class.
+6. Run `from lib.garage import Garage` to load the Garage class.
+7. Run `from lib.repair_man import RepairMan` to load the RepairMan class.
+8. Play to your heart's content using the following commands.
 
 #### Docking Station Methods
 `NAME = DockingStation(optional maximum capacity)` - creates a new DockingStation object with an optional maximum capacity - the default is currently set to 20.  
