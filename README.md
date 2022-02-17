@@ -67,24 +67,74 @@ Bicycle repairmen can collect broken bikes from docking stations and deliver the
 Garages can repair broken bikes.  
 
 ## How to Use
-# Set-Up
+#### Set-Up
 1. Fork this repository and clone it to your machine.
-2. Run `pipenv shell` to create a shell within the virtual environment.
-3. MORE DETAIL TO COME
+2. Run `python3` to initialise your REPL.
+3. Run `from lib.bike import Bike` to load the Bike class.
+4. Run `from lib.docking_station import DockingStation` to load the DockingStation class.
+5. Run `from lib.garage import Garage` to load the Garage class.
+6. Run `from lib.repair_man import RepairMan` to load the RepairMan class.
+7. Play to your heart's content using the following commands.
 
+#### Docking Station Methods
+`NAME = DockingStation(optional maximum capacity)` - creates a new DockingStation object with an optional maximum capacity - the default is currently set to 20.  
+`.dock(bike)` - docks a bike in the docking station, or raises an error if the station is full.  
+`.release_bike(bike)` - releases a working bike from the docking station, or raises an error if there are no working bikes in the station.  
 
-# Docking Station methods
-`docking_station.dock(bike)` - docks a bike in the docking station, or raises an error if the station is full.  
-`docking_station.release_bike(bike)` - releases a working bike from the docking station, or raises an error if there are no working bikes in the station.  
+#### Repairman Methods
+`NAME = RepairMan(optional maximum capacity)` - creates a new RepairMan object with an optional maximum capacity - the default is currently set to 20.  
+`.collect_broken(docking_station)` - collects broken bikes from a docking station, provided the repairman has capacity to hold them.  
+`.deliver_broken(garage)` - repairman deposits broken bikes in a garage, subject to its capacity.  
+`.collect_working(garage)` - collects working bikes from a garage, provided the repairman has the capacity to hold them.  
+`.deliver_working(docking_station)` - repairman deposits working bikes at a docking station, subject to capacity.  
 
-# Repairman methods
-`repairman.collect_broken(docking_station)` - collects broken bikes from a docking station, provided the repairman has capacity to hold them.  
-`repairman.deliver_broken(garage)` - repairman deposits broken bikes in a garage, subject to its capacity.  
-`repairman.collect_working(garage)` - collects working bikes from a garage, provided the repairman has the capacity to hold them.  
-`repairman.deliver_working(docking_station)` - repairman deposits working bikes at a docking station, subject to capacity.
+#### Garage methods  
+`NAME = Garage(optional maximum capacity)` - creates a new Garage object with an optional maximum capacity - the default is currently set to 20.  
+`.repair(bike)` - repairs a broken bike, with accompanying Pythonesque onomatopoeias.  
 
-# Garage methods  
-`garage.repair(bike)` - repairs a broken bike, with accompanying Pythonesque onomatopoeias.
+#### Bike methods  
+`NAME = Bike()` - create a new Bike object. By default its status is set to "released" (not in dock), and it is fully operational.  
+`.release()` - changes a bike's status to released.  
+`.dock()` - changes a bike's status to docked.  
+`.report()` - changes a bike's working status to not working.  
+`.repair()` - changes a bike's working status to working.  
 
-# Bike methods
-`bike.report()` - changes a bike's status to not working.
+## Sample REPL Interaction
+```
+>>> from lib.bike import Bike
+>>> from lib.docking_station import DockingStation
+>>> from lib.garage import Garage
+>>> from lib.repair_man import RepairMan
+>>> dock = DockingStation()
+>>> bike1 = Bike()
+>>> monty = RepairMan()
+>>> garage = Garage()
+>>> dock.dock(bike1)
+>>> dock.bikes
+[<lib.bike.Bike object at 0x100bffdf0>]
+>>> dock.release_bike()
+>>> bike1 in dock.bikes
+False
+>>> bike1.report()
+>>> bike1.working
+False
+>>> dock.dock(bike1)
+>>> monty.collect_broken(dock)
+>>> monty.deliver_broken(garage)
+>>> garage.bikes
+[<lib.bike.Bike object at 0x100bffdf0>]
+>>> garage.repair(bike1)
+Clink!
+>>> garage.repair(bike1)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/Users/marcusventin/Projects/python_extensions/boris_bikes/lib/garage.py", line 10, in repair
+    raise NotImplementedError("This bike already works.")
+NotImplementedError: This bike already works.
+>>> monty.collect_working(garage)
+>>> garage.bikes
+[]
+>>> monty.bikes
+[<lib.bike.Bike object at 0x100bffdf0>]
+>>> monty.deliver_working(dock)
+```
